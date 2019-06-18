@@ -1,0 +1,27 @@
+<div class="container">
+    <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <h1>Login</h1>
+        <p>Please fill in this form to login.</p>
+        <hr>
+        <form name="loginForm" ng-submit="submit()" novalidate>
+            <label for="uname"><b>User Name</b></label>
+            <input type="text" name="uname" placeholder="Enter User Name" ng-model="lgnCtrl.userName" required>
+            <br>
+            <span ng-show="loginForm.uname.$error.required">User Name is required! </span><br><br>
+
+            <label for="psw"><b>Password</b></label>
+            <input type="password" name="psw" placeholder="Enter Password" ng-model="lgnCtrl.password" required>
+            <br>
+            <span ng-show="loginForm.psw.$error.required">Password is required! </span><br><br>
+
+            <input ng-disabled="loginForm.$invalid" type="submit" id="submit" value="Login" ng-click="lgnCtrl.login()"
+                style="margin: 10px; background: rgba(8, 253, 180, 0.876)">
+
+            <button id="recover" ng-click="lgnCtrl.recoverPassword()"
+                style="margin: 10px; background: rgba(8, 253, 180, 0.876)">Password Recover</button>
+        </form>
+        <hr>
+        <br>
+    </div>
+
+</div>

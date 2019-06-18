@@ -1,0 +1,59 @@
+<div class="container">
+    <div style="display: flex; align-items: center; justify-content: center; flex-direction: column;">
+        <h1>Password Recover</h1>
+        <p>Please fill your user name.</p>
+        <hr>
+
+
+        <form name="recoverForm" ng-submit="submit()" novalidate>
+            <label for="uname"><b>User Name</b></label>
+            <br>
+            <input type="text" name="uname" placeholder="Enter User Name" ng-model="rcvCtrl.userName"
+                ng-disabled="isDisabled" required>
+            <br>
+            <span ng-show="recoverForm.uname.$error.required">User Name is required! </span><br><br>
+            <button id="apply" ng-click="rcvCtrl.vaildUserName()" ng-disabled="isDisabled"
+                style="margin: 10px; background: rgba(8, 253, 180, 0.876)">Apply User Name</button>
+            <hr>
+
+            <div ng-show="vaildUser">
+                <br>
+                <label for="uname"><b>{{firstQuestion}}</b></label>
+                <br>
+                <input type="text" name="firstAnswer" placeholder="Enter First Answer" ng-model="rcvCtrl.firstAnswer"
+                    required>
+                <br>
+                <span ng-show="recoverForm.firstAnswer.$error.required">First Answer is required! </span><br><br>
+
+
+                <label for="uname"><b>{{secondQuestion}}</b></label>
+                <br>
+                <input type="text" name="secondAnswer" placeholder="Enter Second Answer" ng-model="rcvCtrl.secondAnswer"
+                    required>
+                <br>
+                <span ng-show="recoverForm.secondAnswer.$error.required">Second Answer is required! </span><br><br>
+
+                <button id="reset" ng-click="rcvCtrl.resetInputs()"
+                    style="margin: 10px; background: rgba(8, 253, 180, 0.876)">New User Name</button>
+
+            </div>
+
+            <div ng-show="showPass">
+                <p> Your password is : {{restoredPass}}</p>
+            </div>
+            <br>
+            <br>
+            <button id="back" ng-click="rcvCtrl.login()"
+                style="margin: 10px; background: rgba(8, 253, 180, 0.876)">Back</button>
+
+            <input ng-disabled="recoverForm.$invalid" type="submit" id="submit" value="Recover"
+                ng-click="rcvCtrl.recoverPassword()" style="margin: 10px; background: rgba(8, 253, 180, 0.876)">
+        </form>
+
+
+
+        <hr>
+        <br>
+    </div>
+
+</div>

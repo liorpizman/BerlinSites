@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Berlin City</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- load css -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin="" />
+
+    <!-- load angular -->
+    <script src="app/js/angular.js"></script>
+    <script src="app/js/angular-route.js"></script>
+    <script src="app/views/node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+    <script src="app/js/jk-rating-stars.min.js"></script>
+
+    <link data-require="bootstrap@3.3.7" data-semver="3.3.7" rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link data-require="bootstrap-css@3.*" data-semver="3.3.7" rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css" />
+    <script data-require="angular-animate@1.6.*" data-semver="1.6.5"
+        src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-animate.min.js"></script>
+    <script data-require="angular-touch@1.6.*" data-semver="1.6.2"
+        src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.2/angular-touch.js"></script>
+    <script data-require="ui-bootstrap@*" data-semver="2.5.0"
+        src="https://cdn.rawgit.com/angular-ui/bootstrap/gh-pages/ui-bootstrap-tpls-2.5.0.js"></script>
+    <script src="https://code.angularjs.org/1.5.0/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.5/angular-material.min.js"></script>
+    <link rel="stylesheet"
+        href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.5/angular-material.min.css" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- leaflet an open-source JavaScript library - interactive maps -->
+    <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+        integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+        crossorigin=""></script>
+
+
+    <!-- load jquery -->
+    <script src="app/js/jquery-3.4.1.min.js"></script>
+
+    <!-- load app & routes -->
+    <script src="app/app.js"></script>
+    <script src="app/routes.js"></script>
+
+    <!-- load controllers -->
+    <script src="app/views/indexController.js"></script>
+    <script src="app/views/pages/about/aboutController.js"></script>
+    <script src="app/views/pages/poi/poiController.js"></script>
+    <script src="app/views/pages/register/registerController.js"></script>
+    <script src="app/views/pages/login/loginController.js"></script>
+    <script src="app/views/pages/home/homeController.js"></script>
+    <script src="app/views/pages/recover/recoverController.js"></script>
+    <script src="app/views/pages/info/infoController.js"></script>
+    <script src="app/views/pages/modal/modalController.js"></script>
+    <script src="app/views/pages/favorites/favoritesController.js"></script>
+
+    <!-- load services -->
+    <script src="app/views/shared/services/setHeadersToken.js"></script>
+    <script src="app/views/shared/services/localStorageModel.js"></script>
+    <script src="app/views/shared/services/userManagement.js"></script>
+    <script src="app/views/shared/services/poiManagement.js"></script>
+
+
+    <style>
+        #mapid {
+            height: 180px;
+        }
+
+        .center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .order {
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .around {
+            justify-content: space-around;
+        }
+
+        .background {
+            background-color: LemonChiffon;
+        }
+
+        .favBtn {
+            background-color: rgb(255, 201, 74);
+            border: none;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+
+        .favBtn:hover {
+            background-color: rgb(248, 165, 11);
+            color: white;
+        }
+
+        .removeBtn {
+            background-color: red;
+            border: none;
+            -webkit-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+        }
+
+        .removeBtn:hover {
+            background-color: brown;
+            color: white;
+        }
+
+        .mark {
+            color: black;
+            background: #66FFFF;
+        }
+
+        .poi-row {
+            display: flex;
+            /* justify-content: center; */
+            align-items: stretch;
+            justify-content: space-between;
+        }
+
+        .left-nav,
+        .right-nav {
+            float: left;
+        }
+
+        .right-nav {
+            margin-left: 20px;
+        }
+
+        a {
+            cursor: pointer;
+        }
+
+
+        .modal-header {
+            text-align: center;
+        }
+
+        .my-custom-stars .button .material-icons {
+            font-size: 50px;
+        }
+
+        .my-custom-stars .star-button.star-on .material-icons {
+            color: #003399;
+        }
+
+        .my-custom-stars .star-button.star-off .material-icons {
+            color: #99ccff;
+        }
+
+        .jk-rating-stars-container .button {
+            cursor: pointer
+        }
+
+        .jk-rating-stars-container .button .material-icons {
+            font-size: 30px
+        }
+
+        .jk-rating-stars-container .star-button {
+            text-shadow: .06em .04em #000
+        }
+
+        .jk-rating-stars-container .star-button.star-on .material-icons {
+            color: #ee9a00
+        }
+
+        .jk-rating-stars-container .star-button.star-off .material-icons {
+            color: #ddd
+        }
+    </style>
+</head>
+
+<a href="/">Home</a>
+<a href="/about">About</a>
+<a href="/POI">POI</a>
+<a href="/login">Login</a>
+<a href="/register">Register</a>
+
+<body ng-app="userApp">
+    <div ng-controller="indexController as idxCtrl">
+        <!-- Navbar (sit on top) -->
+        <div class="w3-top">
+            <div class="w3-bar w3-white w3-wide w3-padding w3-card">
+                <a href="/" class="w3-bar-item w3-button"><b>Berlin</b></a>
+                <a class="w3-bar-item"><u class="mark">Hello {{helloTag}}</u></a>
+                <!-- Float links to the right. Hide them on small screens -->
+                <div class="w3-right w3-hide-small">
+                    <a href="/" class="w3-bar-item w3-button">Home</a>
+                    <a href="/about" class="w3-bar-item w3-button">About</a>
+                    <a href="/favorites" class="w3-bar-item w3-button" ng-show="userConnected">Favorites -
+                        counter:{{countFav}}</a>
+                    <a href="/POI" class="w3-bar-item w3-button">Search POI</a>
+                    <a href="/login" class="w3-bar-item w3-button mark" ng-hide="userConnected">Login</a>
+                    <a class="w3-bar-item w3-button mark" ng-show="userConnected" ng-click="idxCtrl.logout()">Logout</a>
+                    <a href="/register" class="w3-bar-item w3-button" ng-hide="userConnected">Sign Up</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Header -->
+        <header class="w3-display-container w3-content w3-wide" style="max-width:1500px;" id="home">
+            <img class="poi-row" src="app/views/resources/background2.jpg" alt="Berlin" width="1400" height="500">
+            <div class="w3-display-middle w3-margin-top w3-center">
+                <h1 class="w3-xxlarge w3-text-white"><span class="w3-padding w3-black w3-opacity-min"><b>Berlin
+                            Sites</b></span></h1>
+            </div>
+        </header>
+
+        <!-- Page content -->
+        <div class="w3-content w3-padding" style="max-width:1564px">
+
+
+            <!-- This section changes as the hashbang changes -->
+            <div class="center background order" ng-view></div>
+
+            <div ng-show="showFooter">
+                <div class="w3-container w3-padding-32">
+                    <h3 class="w3-border-bottom w3-border-light-grey w3-padding-16">Explore</h3>
+                </div>
+
+                <!-- w3-grayscale -->
+                <divclass="w3-row-padding">
+                    <div class="center around">
+                        <div class="w3-col l3 m6 w3-margin-bottom"
+                            ng-repeat="(id, poi) in idxCtrl.footer track by $index">
+                            <div ng-if="poi !=udefined">
+                                <div ng-click="idxCtrl.openInfo(poi)">
+                                    <img ng-style={{imgStyle}} ng-src={{poi.url}}>
+                                    <h3><span ng-bind="poi.POIName"></span></h3>
+                                </div>
+                                <div ng-show="userConnected">
+                                    <!-- <p><button class=" btn btn-info" ng-click="addFavorite(poi.PID)"
+                                            style="margin: 10px; background: rgba(250, 154, 28, 0.876)">Add
+                                            Favorite</button></p>
+                                    <p><button class=" btn btn-info" ng-click="removeFavorite(poi.PID)"
+                                            style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                                            Favorite</button></p> -->
+                                    <p><button class=" btn btn-info" ng-click="open(poi.POIName, poi.url, poi.PID)"
+                                            style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <!-- End page content -->
+    </div>
+
+
+    <!-- Footer -->
+    <footer class="w3-center w3-black w3-padding-16">
+        <p>2019 Lior Pizman & Yehuda Pashay </p>
+    </footer>
+
+    </div>
+
+</body>
+
+</html>

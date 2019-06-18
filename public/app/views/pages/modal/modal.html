@@ -1,0 +1,53 @@
+<div class="modal-header">
+  <h3>{{modalPoi}} - Review & Rating</h3>
+</div>
+
+<div class="modal-body">
+  <div class="center">
+    <img ng-style={{imgStyle}} ng-src={{modalImg}}>
+  </div>
+
+  <hr>
+
+  <div style="padding: 20px">
+    <div layout="column">
+      <p>You can rate : {{modalPoi}}</p>
+      <jk-rating-stars max-rating="5" rating="secondRate" on-rating="onItemRating(rating)">
+      </jk-rating-stars>
+      <div style="width: 100px">{{secondRate}} Stars</div>
+      <br>
+      <button class="btn btn-primary" ng-click="submitRating()" style="width: 25%;">Submit Rating</button>
+      <br>
+      <div ng-show="ratingUpdated">
+        <p> The rating has been updated!</p>
+      </div>
+    </div>
+  </div>
+
+
+  <hr>
+
+  <div style="padding: 20px">
+    <div layout="column">
+      <p>You can write a review about : {{modalPoi}}</p>
+      <form class="container" name="reviewForm" ng-submit="submit()" novalidate>
+        <label for="review"><b>Your review:</b></label>
+        <input type="text" placeholder="Enter Review" name="review" ng-model="modalReview"
+          style="width: 30%; height: 40%;" required>
+        <br>
+        <br>
+        <button ng-disabled="reviewForm.$invalid" class="btn btn-primary" ng-click="submitReview()"
+          style="width: 25%;">Submit Review</button>
+      </form>
+      <br>
+      <div ng-show="reviewUpdated">
+        <p> The review has been updated!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+
+  <button class="btn btn-warning" ng-click="exit()">Exit</button>
+</div>

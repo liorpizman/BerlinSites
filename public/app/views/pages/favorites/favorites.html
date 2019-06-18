@@ -1,0 +1,85 @@
+<h1>Your Favorites in Berlin</h1>
+<hr>
+<form name="sortByForm" ng-submit="submit()" novalidate>
+
+    <label for="searchCtg">Search by:</label>
+    <select ng-model="favCtrl.sortProperty" ng-options="x for x in sortBy" required> </select>
+
+    <input ng-disabled="sortByForm.$invalid" type="submit" id="submit" value="Sort" ng-click="sortByProperty()"
+        style="margin: 10px; background: rgba(8, 253, 180, 0.876)">
+    <br>
+    **You must choose property for this search
+
+</form>
+
+<hr>
+<form name="userOrderForm" ng-submit="submit()" novalidate>
+    <label for="userOrder">Set your own order:</label>
+
+
+    <div ng-repeat="(id, poi) in inputNames track by $index">
+        <label for="poi">*<span ng-bind="poi"></span></label>
+    </div>
+    <input type="text" placeholder="Enter Your own order" name="userOrder" ng-model="favCtrl.userOrder"
+        style="margin: 10px; width:70%;" required>
+
+
+
+
+    <input ng-disabled="userOrderForm.$invalid" type="submit" id="submit" value="set Order" ng-click="setUserOrder()"
+        style="margin: 10px; background: rgba(8, 253, 180, 0.876)">
+</form>
+**You must choose different values in range of 1 and favorite's counter!<br><br>
+The point of views are mention here from up to down.<br>
+For set your order enter valuse like this: "2 3 5 4 1" ("poi1Order poi2Order ...")<br>
+while highest number is the index of the first POI and the smallest number is the index of the last POI<br>
+<br>
+<button class="btn btn-info" ng-click="saveInDB()"
+                        style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Save Favorites in DB</button></p>
+
+<hr>
+<div class="w3-row-padding" ng-repeat="(id, poiLine) in favCtrl.favPois track by $index">
+    <div class="poi-row">
+        <div class="w3-col l3 m6 w3-margin-bottom" ng-if="poiLine[0] != udefined" ng-show="poiLine[0].fav">
+            <div ng-click="favCtrl.openInfo(poiLine[0])">
+                <img ng-style={{imgStyle}} ng-src={{poiLine[0].url}}>
+                <h3><span ng-bind="poiLine[0].POIName"></span></h3>
+            </div>
+            <div ng-show="userConnected">
+                <p><button class="btn btn-info" ng-click="favCtrl.removeFavorite(poiLine[0].PID)"
+                        style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                        Favorite</button></p>
+                <p><button class="btn btn-info" ng-click="open(poiLine[0].POIName, poiLine[0].url, poiLine[0].PID)"
+                        style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button></p>
+            </div>
+
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom" ng-if="poiLine[1] != udefined" ng-show="poiLine[1].fav">
+            <div ng-click="favCtrl.openInfo(poiLine[1])">
+                <img ng-style={{imgStyle}} ng-src={{poiLine[1].url}}>
+                <h3><span ng-bind="poiLine[1].POIName"></span></h3>
+            </div>
+            <div ng-show="userConnected">
+                <p><button class=" btn btn-info" ng-click="favCtrl.removeFavorite(poiLine[1].PID)"
+                        style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                        Favorite</button></p>
+                <p><button class=" btn btn-info" ng-click="open(poiLine[1].POIName, poiLine[1].url, poiLine[1].PID)"
+                        style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button></p>
+            </div>
+
+        </div>
+        <div class="w3-col l3 m6 w3-margin-bottom" ng-if="poiLine[2] != udefined" ng-show="poiLine[2].fav">
+            <div ng-click="favCtrl.openInfo(poiLine[2])">
+                <img ng-style={{imgStyle}} ng-src={{poiLine[2].url}}>
+                <h3><span ng-bind="poiLine[2].POIName"></span></h3>
+            </div>
+            <div ng-show="userConnected">
+                <p><button class=" btn btn-info" ng-click="favCtrl.removeFavorite(poiLine[2].PID)"
+                        style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                        Favorite</button></p>
+                <p><button class=" btn btn-info" ng-click="open(poiLine[2].POIName, poiLine[2].url, poiLine[2].PID)"
+                        style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button></p>
+            </div>
+        </div>
+    </div>
+</div>

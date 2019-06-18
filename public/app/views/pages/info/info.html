@@ -1,0 +1,58 @@
+<!-- <div data-ng-init="onload()"> -->
+<div>
+    <h1>{{POIName}}</h1>
+    <hr>
+    <div class="w3-row-padding">
+        <div class=" around">
+            <div class="w3-col l3 m6 w3-margin-bottom">
+                <img ng-style={{imgStyle}} ng-src={{url}}>
+                <hr>
+                <img ng-style={{imgStyle}} ng-src={{secondUrl}}>
+                <p><span ng-bind={{description}}></span></p>
+                <p>Rating: <span ng-bind={{totalRating}}></span>%</p>
+                <p>views: <span ng-bind={{countViews}}></span></p>
+                <p>category: <span ng-bind='infCtrl.category'></span></p>
+                <div ng-hide={{showFirstReview}}>
+                    <hr>
+                    <p>User 1: <span ng-bind='infCtrl.firstUser'></span></p>
+                    <p>Review: <span ng-bind='infCtrl.firstReview'></span></p>
+                    <p>Date Published: <span ng-bind='infCtrl.firstDate'></span></p>
+                </div>
+                <div ng-hide={{showSecondReview}}>
+                    <hr>
+                    <p>User 2: <span ng-bind='infCtrl.secondUser'></span></p>
+                    <p>Review: <span ng-bind='infCtrl.secondReview'></span></p>
+                    <p>Date Published: <span ng-bind='infCtrl.secondDate'></span></p>
+                </div>
+
+                <div ng-show={{showFirstReview}}>
+                    <hr>
+                    <p>There are no reviews for this site!</p>
+                </div>
+
+                <div ng-show={{showSecondReview}}>
+                    <hr>
+                    <p>There is just one review for this site!</p>
+                </div>
+
+
+                <div id="mapid" style="text-align: center ; width: 400px; height: 200px;"></div>
+
+                <div ng-show="userConnected">
+                    <p ng-hide="isFav"><button class=" btn btn-info" ng-click="infCtrl.addFavorite(PID)"
+                            style="margin: 10px; background: rgba(250, 154, 28, 0.876)">Add Favorite</button></p>
+
+                    <p ng-show="isFav"><button class=" btn btn-info" ng-click="infCtrl.removeFavorite(PID)"
+                            style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                            Favorite</button></p>
+
+                    <p><button class=" btn btn-info" ng-click="open(POIName, url ,PID)"
+                            style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button></p>
+                </div>
+                <p><button class=" btn btn-info" ng-click="infCtrl.back()"
+                        style="margin: 10px; background: rgba(25, 151, 3, 0.876)">Another Site in Berlin</button></p>
+
+            </div>
+        </div>
+    </div>
+</div>

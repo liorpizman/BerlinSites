@@ -1,0 +1,110 @@
+<h2>Welcome to Berlin's Trip Advisor</h2>
+
+<p><button class="w3-block favBtn" ng-click="hmCtrl.jumpToPoi()">Let's search!</button></p>
+
+<div ng-hide="userConnected">
+
+    <h3>Already have an account?</h3>
+    <p>
+        <button id="login" ng-click="LoginPage()"
+            style="margin: 10px; background: rgba(8, 253, 180, 0.876)"><b>Yes</b>, take
+            me to Login Page</button>
+        <button id="SignUp" ng-click="SignUpPage()" style="margin: 10px; background: rgba(8, 253, 180, 0.876)"><b>No</b>,
+            take me
+            to Sign Up Page</button>
+    </p>
+
+
+</div>
+
+
+<div ng-show="userConnected">
+
+    <h3><b>Two Most Popular</b></h3>
+    <hr>
+
+    <div class="w3-row-padding">
+        <div class="poi-row">
+            <div class="w3-col l3 m6 w3-margin-bottom">
+                <div ng-click="hmCtrl.openInfo(firstObj)">
+                    <img ng-style={{imgStyle}} ng-src={{imgs[0]}}>
+                    <h3>{{firstName}}</h3>
+                    <h4>category: {{firstCtg}}</h4>
+                </div>
+                <!-- <p ng-hide="firstObj.fav"><button class=" btn btn-info" ng-click="hmCtrl.addFavorite(firstObj.PID)"
+                        style="margin: 10px; background: rgba(250, 154, 28, 0.876)">Add to Favorites</button>
+                </p>
+                <p ng-show="firstObj.fav"><button class=" btn btn-info" ng-click="hmCtrl.removeFavorite(firstObj.PID)"
+                        style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                        Favorite</button></p> -->
+                <p><button class=" btn btn-info" ng-click="open(firstObj.POIName, firstObj.url, firstObj.PID)"
+                        style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button></p>
+            </div>
+
+            <div class="w3-col l3 m6 w3-margin-bottom">
+                <div ng-click="hmCtrl.openInfo(secondObj)">
+                    <img ng-style={{imgStyle}} ng-src={{imgs[1]}}>
+                    <h3>{{secondName}}</h3>
+                    <h4>category: {{secondCtg}}</h4>
+                </div>
+                <!-- <p ng-hide="secondObj.fav"><button class=" btn btn-info" ng-click="hmCtrl.addFavorite(secondObj.PID)"
+                        style="margin: 10px; background: rgba(250, 154, 28, 0.876)">Add to
+                        Favorites</button></p>
+                <p ng-show="secondObj.fav"><button class=" btn btn-info" ng-click="hmCtrl.removeFavorite(secondObj.PID)"
+                        style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                        Favorite</button></p> -->
+                <p><button class=" btn btn-info" ng-click="open(secondObj.POIName, secondObj.url, secondObj.PID)"
+                        style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button></p>
+            </div>
+        </div>
+    </div>
+
+    <h3><b>Two Recently Saved</b></h3>
+    <hr>
+    <p>
+        {{message}}
+    </p>
+
+    <div class="w3-row-padding">
+        <div class="poi-row">
+            <div class="w3-col l3 m6 w3-margin-bottom" ng-show="showFirst">
+                <div ng-click="hmCtrl.openInfo(firstSavedObj)">
+                    <img ng-style={{imgStyle}} ng-src={{savedImgs[0]}}>
+                    <h3>{{firstSaved}}</h3>
+                    <h4>category: {{firstSavedCtg}}</h4>
+                </div>
+                <!-- <p ng-hide="firstSavedObj.fav"><button class=" btn btn-info"
+                        ng-click="hmCtrl.addFavorite(firstSavedObj.PID)"
+                        style="margin: 10px; background: rgba(250, 154, 28, 0.876)">Add to Favorites</button>
+                </p>
+                <p ng-show="firstSavedObj.fav"><button class=" btn btn-info"
+                        ng-click="hmCtrl.removeFavorite(firstSavedObj.PID)"
+                        style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                        Favorite</button></p> -->
+                <p><button class=" btn btn-info"
+                        ng-click="open(firstSavedObj.POIName, firstSavedObj.url, firstSavedObj.PID)"
+                        style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button></p>
+            </div>
+
+            <div class="w3-col l3 m6 w3-margin-bottom" ng-show="showSecond">
+                <div ng-click="hmCtrl.openInfo(secondSavedObj)">
+                    <img ng-style={{imgStyle}} ng-src={{savedImgs[1]}}>
+                    <h3>{{secondSaved}}</h3>
+                    <h4>category: {{secondSavedCtg}}</h4>
+                </div>
+                <!-- <p ng-hide="secondSavedObj.fav"><button class=" btn btn-info"
+                        ng-click="hmCtrl.addFavorite(secondSavedObj.PID)"
+                        style="margin: 10px; background: rgba(250, 154, 28, 0.876)">Add to
+                        Favorites</button></p>
+                <p ng-show="secondSavedObj.fav"><button class=" btn btn-info"
+                        ng-click="hmCtrl.removeFavorite(secondSavedObj.PID)"
+                        style="margin: 10px; background: rgba(253, 57, 57, 0.876)">Remove
+                        Favorite</button></p> -->
+                <p><button class=" btn btn-info"
+                        ng-click="open(secondSavedObj.POIName, secondSavedObj.url, secondSavedObj.PID)"
+                        style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Review</button></p>
+            </div>
+        </div>
+    </div>
+
+</div>
