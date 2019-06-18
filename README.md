@@ -15,9 +15,21 @@
 
 ---
 
+> Registered Users
+
+- User Name: a         Password: a
+- User Name: lior      Password: 1234567
+- User Name: yehuda    Password: 1234567
+- User Name: pizman    Password: abcd123
+- User Name: tal       Password: 123fdge
+
+---
+
 > Technologies
 
 - NodeJS for server-side 
 - AngularJS for client-side 
 - Bootstrap for layout and styling
 - Microsoft SQL Server for database management
+
+
