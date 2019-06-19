@@ -1,6 +1,6 @@
 // about controller
 angular.module("userApp")
-    .controller("homeController", ['$scope', '$http', '$location', 'poiManagement', '$rootScope', '$uibModal', '$rootScope', function ($scope, $http, $location, poiManagement, $rootScope, $uibModal, $rootScope) {
+    .controller("homeController", ['$scope', '$http', '$location', 'poiManagement', '$rootScope', '$uibModal', 'localStorageModel', function ($scope, $http, $location, poiManagement, $rootScope, $uibModal, localStorageModel) {
 
         let self = this;
         self.src = "app/views/resources/";
@@ -18,6 +18,7 @@ angular.module("userApp")
         /* updates explore section on load*/
         self.initState = function () {
             $rootScope.showFooter = true;
+            localStorageModel.updateLocalStorage("showFooter", $rootScope.showFooter);
         }
 
         self.initState();
@@ -31,6 +32,7 @@ angular.module("userApp")
         self.openInfo = function (img) {
             poiManagement.setImg(img);
             $rootScope.showFooter = false;
+            localStorageModel.updateLocalStorage("showFooter", $rootScope.showFooter);
             $location.path('/info');
             $location.replace();
         }
@@ -211,8 +213,11 @@ angular.module("userApp")
         /* method to open a modal window for review and rating current poi*/
         $scope.open = function (name, img, pid) {
             $rootScope.modalPoi = name;
+            localStorageModel.updateLocalStorage("modalPoi", $rootScope.modalPoi);
             $rootScope.modalImg = img;
+            localStorageModel.updateLocalStorage("modalImg", $rootScope.modalImg);
             $rootScope.modalPID = pid;
+            localStorageModel.updateLocalStorage("modalPID", $rootScope.modalPID);
             var modalInstance = $uibModal.open({
                 templateUrl: "app/views/pages/modal/modal.html",
                 controller: "modalController as mdlCtrl",

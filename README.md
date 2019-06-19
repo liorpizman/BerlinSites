@@ -6,11 +6,9 @@
 > Instructions
 
 - npm install tedious-connection-pool express body-parser jsonwebtoken util xml2js fs cors path
-
-- npm start
-
+- npm init (optional : for choosing Server.js as default in npm start)
+- npm start (Server.js)
 - Open the browser and write localhost:3000/
-
 - Enjoy Berlin's Trip Advisor!
 
 ---

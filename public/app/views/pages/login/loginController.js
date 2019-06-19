@@ -38,9 +38,11 @@ angular.module("userApp")
                     }
                     else {
                         $rootScope.userConnected = true;
+                        localStorageModel.updateLocalStorage("userConnected", $rootScope.userConnected);
                         setHeadersToken.set(response.data["token"]);
                         poiManagement.loadFavorites();
                         $rootScope.helloTag = response.data["message"][0]["firstName"];
+                        localStorageModel.updateLocalStorage("helloTag", $rootScope.helloTag);
 
                         $location.path('/');
                         $location.replace();

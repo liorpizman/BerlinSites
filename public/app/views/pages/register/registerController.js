@@ -1,6 +1,6 @@
 //register controller
 angular.module("userApp")
-    .controller("registerController", ['$scope', '$http', '$location', '$rootScope', '$window', function ($scope, $http, $location, $rootScope, $window) {
+    .controller("registerController", ['$scope', '$http', '$location', '$rootScope', '$window', 'localStorageModel', function ($scope, $http, $location, $rootScope, $window, localStorageModel) {
 
         self = this;
 

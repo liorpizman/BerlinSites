@@ -1,6 +1,6 @@
 // info controller
 angular.module("userApp")
-    .controller("infoController", ['$scope', '$http', '$rootScope', '$window', 'userManagement', '$location', 'poiManagement', '$uibModal', '$q', function ($scope, $http, $rootScope, $window, userManagement, $location, poiManagement, $uibModal, $q) {
+    .controller("infoController", ['$scope', '$http', '$rootScope', '$window', 'userManagement', '$location', 'poiManagement', '$uibModal', '$q', 'localStorageModel', function ($scope, $http, $rootScope, $window, userManagement, $location, poiManagement, $uibModal, $q ,localStorageModel) {
 
         let self = this;
 
@@ -27,12 +27,14 @@ angular.module("userApp")
 
         /* function running on page's load for update all info about current poi*/
         $scope.onload = function () {
-            if (poiManagement.openedImg) {
-                self.currImg = poiManagement.openedImg;
+            if ($rootScope.openedImg) {
+                self.currImg = $rootScope.openedImg;
 
                 $rootScope.PID = self.currImg["PID"];
+                localStorageModel.updateLocalStorage("PID", $rootScope.PID);
                 poiManagement.updateCountViews($rootScope.PID);
                 $rootScope.countViews = self.currImg["countViews"];
+                localStorageModel.updateLocalStorage("countViews", $rootScope.countViews);
 
                 $http({
 
@@ -51,34 +53,49 @@ angular.module("userApp")
                 });
 
                 $rootScope.POIName = self.currImg["POIName"];
+                localStorageModel.updateLocalStorage("POIName", $rootScope.POIName);
                 $rootScope.url = self.currImg["url"];
+                localStorageModel.updateLocalStorage("url", $rootScope.url);
                 $rootScope.secondUrl = self.currImg["url"].substring(0, self.currImg["url"].indexOf(".jpg")) + 'a' + '.jpg';
+                localStorageModel.updateLocalStorage("secondUrl", $rootScope.secondUrl);
                 $rootScope.description = self.currImg["description"] + '';
+                localStorageModel.updateLocalStorage("description", $rootScope.description);
                 $rootScope.img = self.currImg["img"];
+                localStorageModel.updateLocalStorage("img", $rootScope.img);
                 $rootScope.landmark = self.currImg["landmark"];
-                $rootScope.totalRating = (self.currImg["totalRating"] / 5).toFixed(2) * 100;
+                localStorageModel.updateLocalStorage("landmark", $rootScope.landmark);
+                $rootScope.totalRating = ((self.currImg["totalRating"] / 5) * 100 ).toFixed(2);
+                localStorageModel.updateLocalStorage("totalRating", $rootScope.totalRating);
                 $rootScope.isFav = self.currImg["fav"];
+                localStorageModel.updateLocalStorage("isFav", $rootScope.isFav);
             }
 
             $rootScope.showFirstReview = false;
+            localStorageModel.updateLocalStorage("showFirstReview", $rootScope.showFirstReview);
             $rootScope.showSecondReview = false;
+            localStorageModel.updateLocalStorage("showSecondReview", $rootScope.showSecondReview);
 
             let ctgr = self.currImg["category"];
             if (ctgr == '0') {
                 self.category = "Museum";
                 $rootScope.category = "Museum";
+                localStorageModel.updateLocalStorage("category", $rootScope.category);
             } else if (ctgr == '1') {
                 self.category = "Club";
                 $rootScope.category = "Club";
+                localStorageModel.updateLocalStorage("category", $rootScope.category);
             } else if (ctgr == '2') {
                 self.category = "Park";
                 $rootScope.category = "Park";
+                localStorageModel.updateLocalStorage("category", $rootScope.category);
             } else if (ctgr == '3') {
                 self.category = "Restaurant";
                 $rootScope.category = "Restaurant";
+                localStorageModel.updateLocalStorage("category", $rootScope.category);
             } else {
                 self.category = "Site";
                 $rootScope.category = "Site";
+                localStorageModel.updateLocalStorage("category", $rootScope.category);
             }
 
             $http({
@@ -92,18 +109,24 @@ angular.module("userApp")
             }).then(function successCallback(response) {
                 if (response.data["message"] == 'There is no Review for this POI') {
                     $rootScope.showFirstReview = false;
+                    localStorageModel.updateLocalStorage("showFirstReview", $rootScope.showFirstReview);
                     $rootScope.showSecondReview = false;
+                    localStorageModel.updateLocalStorage("showSecondReview", $rootScope.showSecondReview);
                 }
                 else if (response.data["message"] == 'There is one Review for this POI') {
                     $rootScope.showFirstReview = true;
+                    localStorageModel.updateLocalStorage("showFirstReview", $rootScope.showFirstReview);
                     $scope.firstReview = response.data[0]["review"];
                     $scope.firstUser = response.data[0]["UserName"];
                     $scope.firstDate = response.data[0]["DateReviewed"];
                     $rootScope.showSecondReview = false;
+                    localStorageModel.updateLocalStorage("showSecondReview", $rootScope.showSecondReview);
                 }
                 else if ($rootScope.PID) {
                     $rootScope.showFirstReview = true;
+                    localStorageModel.updateLocalStorage("showFirstReview", $rootScope.showFirstReview);
                     $rootScope.showSecondReview = true;
+                    localStorageModel.updateLocalStorage("showSecondReview", $rootScope.showSecondReview);
 
                     self.firstReview = response.data[0]["review"];
                     self.firstUser = response.data[0]["UserName"];
@@ -137,12 +160,14 @@ angular.module("userApp")
             $location.path('/POI');
             $location.replace();
             $rootScope.showFooter = true;
+            localStorageModel.updateLocalStorage("showFooter", $rootScope.showFooter);
         }
 
         /* method to add new favorite */
         self.addFavorite = function (pid) {
             poiManagement.addFavorite(pid, '/info');
             $rootScope.isFav = !$rootScope.isFav;
+            localStorageModel.updateLocalStorage("isFav", $rootScope.isFav);
             $location.path('/info');
             $location.replace();
         }
@@ -151,6 +176,7 @@ angular.module("userApp")
         self.removeFavorite = function (pid) {
             poiManagement.removeFavorite(pid, '/info');
             $rootScope.isFav = !$rootScope.isFav;
+            localStorageModel.updateLocalStorage("isFav", $rootScope.isFav);
             $location.path('/info');
             $location.replace();
         }
@@ -158,8 +184,11 @@ angular.module("userApp")
         /* method to open a modal window for review and rating current poi*/
         $scope.open = function (name, img, pid) {
             $rootScope.modalPoi = name;
+            localStorageModel.updateLocalStorage("modalPoi", $rootScope.modalPoi);
             $rootScope.modalImg = img;
+            localStorageModel.updateLocalStorage("modalImg", $rootScope.modalImg);
             $rootScope.modalPID = pid;
+            localStorageModel.updateLocalStorage("modalPID", $rootScope.modalPID);
             var modalInstance = $uibModal.open({
                 templateUrl: "app/views/pages/modal/modal.html",
                 controller: "modalController as mdlCtrl",

@@ -1,6 +1,6 @@
 // about controller
 angular.module("userApp")
-    .controller("recoverController", ['$scope', '$http', '$location', function ($scope, $http, $location) {
+    .controller("recoverController", ['$scope', '$http', '$location', 'localStorageModel', function ($scope, $http, $location, localStorageModel) {
 
         self = this;
 

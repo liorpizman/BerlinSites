@@ -1,10 +1,11 @@
 angular.module("userApp")
-    .controller('modalController', ['$scope', '$uibModalInstance', '$rootScope', '$http', function ($scope, $uibModalInstance, $rootScope, $http) {
+    .controller('modalController', ['$scope', '$uibModalInstance', '$rootScope', '$http', 'localStorageModel', function ($scope, $uibModalInstance, $rootScope, $http, localStorageModel) {
 
         $scope.secondRate = 3;
         $scope.ratingUpdated = false;
         $scope.reviewUpdated = false;
         $rootScope.modalRating = 3;
+        localStorageModel.updateLocalStorage("modalRating", $rootScope.modalRating);
 
         $scope.imgStyle = {
             "width": "180px",
@@ -19,6 +20,7 @@ angular.module("userApp")
         /* method running when the rating curser is changed*/
         $scope.onItemRating = function (rating) {
             $rootScope.modalRating = rating;
+            localStorageModel.updateLocalStorage("modalRating", $rootScope.modalRating);
         };
 
         /* method to submit rating for current user */

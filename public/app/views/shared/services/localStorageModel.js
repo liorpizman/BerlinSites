@@ -1,6 +1,7 @@
 angular.module("userApp")
     .service('localStorageModel', ['localStorageService', function (localStorageService) {
 
+
         var self = this;
 
         /* method to add new data to local storage */
@@ -10,8 +11,8 @@ angular.module("userApp")
                 if (localStorageService.set(key, value)) {
                     console.log("data added")
                 }
-                else
-                    console.log('failed to add the data');
+            //else    /* for test use */
+            //console.log('failed to add the data');
         }
 
         /* method to get data from local storage */
@@ -29,6 +30,4 @@ angular.module("userApp")
         self.removeLocalStorage = function (key) {
             localStorageService.remove(key);
         }
-
-
     }]);

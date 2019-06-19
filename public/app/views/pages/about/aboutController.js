@@ -1,9 +1,10 @@
 // about controller
 angular.module("userApp")
-    .controller("aboutController", ['$scope', '$rootScope', '$window', function ($scope, $rootScope, $window) {
+    .controller("aboutController", ['$scope', '$rootScope', '$window', 'localStorageModel', function ($scope, $rootScope, $window, localStorageModel) {
 
         self.initState = function () {
             $rootScope.showFooter = true;
+            localStorageModel.updateLocalStorage("showFooter", $rootScope.showFooter);
         }
 
         self.initState();

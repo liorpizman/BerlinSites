@@ -38,7 +38,7 @@ while highest number is the index of the first POI and the smallest number is th
                         style="margin: 10px; background: rgba(10, 59, 68, 0.876)">Save Favorites in DB</button></p>
 
 <hr>
-<div class="w3-row-padding" ng-repeat="(id, poiLine) in favCtrl.favPois track by $index">
+<div class="w3-row-padding" ng-repeat="(id, poiLine) in favPois track by $index">
     <div class="poi-row">
         <div class="w3-col l3 m6 w3-margin-bottom" ng-if="poiLine[0] != udefined" ng-show="poiLine[0].fav">
             <div ng-click="favCtrl.openInfo(poiLine[0])">

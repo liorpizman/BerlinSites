@@ -3,19 +3,18 @@ angular.module('userApp')
 
         let self = this;
 
-        self.openedImg = {};
+        $rootScope.openedImg = {};
         self.POIS = [];
         self.src = "app/views/resources/";
         self.imgs = [];
-        self.favorites = [];
+        self.favorites = localStorageModel.getLocalStorage("favPois");
 
-        localStorageModel.removeLocalStorage("token");
-        localStorageModel.removeLocalStorage("favorites");
-        localStorageModel.addLocalStorage("favorites", self.favorites);
+        $rootScope.openedImg = localStorageModel.getLocalStorage("openedImg");
 
         /* method to set current image for info location */
         self.setImg = function (img) {
-            self.openedImg = img;
+            $rootScope.openedImg = img;
+            localStorageModel.updateLocalStorage("openedImg", $rootScope.openedImg);
         }
 
         /* method to search poi by name */
@@ -228,6 +227,7 @@ angular.module('userApp')
                 localStorageModel.addLocalStorage("favorites", self.favorites);
 
                 $rootScope.countFav = self.favorites.length;
+                localStorageModel.updateLocalStorage("countFav", $rootScope.countFav);
                 self.setFavoritesValue();
             }).catch(function (err) {
                 console.log(err);
