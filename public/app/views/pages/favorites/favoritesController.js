@@ -131,25 +131,27 @@ angular.module("userApp")
 
         /* method which starts on controller's load*/
         self.onLoad = function () {
-            let row = 0;
-            let col = 0;
-            for (let i = 0; i < poiManagement.POIS.length; i++) {
-                //console.log(poiManagement.POIS);
-                for (let j = 0; j < 3 && j < poiManagement.POIS[i].length; j++) {
-                    if (poiManagement.POIS[i][j]["fav"] == true) {
-                        $rootScope.favPois[row][col] = poiManagement.POIS[i][j];
-                        if (col == 2) {
-                            col = 0;
-                            row += 1;
-                            $rootScope.favPois[row] = [];
-                        }
-                        else {
-                            col += 1;
+            if($rootScope.favPois=== undefined || $rootScope.favPois=== null){
+                let row = 0;
+                let col = 0;
+                for (let i = 0; i < poiManagement.POIS.length; i++) {
+                    //console.log(poiManagement.POIS);
+                    for (let j = 0; j < 3 && j < poiManagement.POIS[i].length; j++) {
+                        if (poiManagement.POIS[i][j]["fav"] == true) {
+                            $rootScope.favPois[row][col] = poiManagement.POIS[i][j];
+                            if (col == 2) {
+                                col = 0;
+                                row += 1;
+                                $rootScope.favPois[row] = [];
+                            }
+                            else {
+                                col += 1;
+                            }
                         }
                     }
                 }
-            }
-            localStorageModel.updateLocalStorage("favPois", $rootScope.favPois);
+                localStorageModel.updateLocalStorage("favPois", $rootScope.favPois);
+             }
             return $rootScope.favPois;
         }
 
